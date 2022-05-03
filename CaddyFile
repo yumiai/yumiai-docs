@@ -1,0 +1,10 @@
+{
+    http_port  80
+    auto_https off
+    debug
+}
+
+http://docs.yumi.ai {
+    root * /srv
+    file_server
+}

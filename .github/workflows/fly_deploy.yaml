@@ -1,0 +1,27 @@
+name: Deploy to fly
+
+on:
+  repository_dispatch:
+    types: [yumi-spec]
+  workflow_dispatch:
+
+jobs:
+  fly_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.client_payload.ref }}
+
+      - run: echo ${{ github.event.client_payload.sha }}
+      
+      - name: Antora Site
+        uses: kameshsampath/antora-site-action@v0.2.4
+        with:
+          antora_playbook: playbook.yml
+      - name: Fly deploy
+        uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

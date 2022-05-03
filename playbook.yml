@@ -1,0 +1,12 @@
+site:
+  title: Antora Docs
+  start_page: yumiai-spec::index.adoc
+content:
+  sources:
+    - url: https://github.com/yumiai/yumiai-specs
+      branches: main
+      start_path: docs
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
